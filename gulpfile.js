@@ -13,7 +13,23 @@ var lib = require('bower-files')({
       "main": [
         "less/bootstrap.less",
         "dist/css/bootstrap.css",
-        "dist/js/bootstrap.js"
+        "dist/js/bootstrap.js",
+        "fonts/glyphicons-halflings-regular.svg",
+        "fonts/glyphicons-halflings-regular.eot",
+        "fonts/glyphicons-halflings-regular.ttf",
+        "fonts/glyphicons-halflings-regular.woff",
+        "fonts/glyphicons-halflings-regular.woff2",
+
+      ]
+    },
+    "font-awesome" : {
+      "main": [
+        "fonts/fontawesome-webfont.svg",
+        "css/css/font-awesome.css",
+        "fonts/fontawesome-webfont.eot",
+        "fonts/fontawesome-webfont.ttf",
+        "fonts/fontawesome-webfont.woff",
+        "fonts/fontawesome-webfont.woff2"
       ]
     }
   }
@@ -73,7 +89,34 @@ gulp.task('bowerCSS', function(){
     .pipe(gulp.dest('./build/css'));
 });
 
-gulp.task('bower', ['bowerJS', 'bowerCSS']);
+gulp.task('bowerSvg', function() {
+  return gulp.src(lib.ext('svg').files)
+  .pipe(gulp.dest('./build/fonts'));
+})
+
+gulp.task('bowerEot', function() {
+  return gulp.src(lib.ext('eot').files)
+  .pipe(gulp.dest('./build/fonts'));
+})
+
+gulp.task('bowerTtf', function() {
+  return gulp.src(lib.ext('ttf').files)
+  .pipe(gulp.dest('./build/fonts'));
+})
+
+gulp.task('bowerWoff', function() {
+  return gulp.src(lib.ext('woff').files)
+  .pipe(gulp.dest('./build/fonts'));
+})
+
+gulp.task('bowerWoff2', function() {
+  return gulp.src(lib.ext('woff2').files)
+  .pipe(gulp.dest('./build/fonts'));
+})
+
+gulp.task('bowerFonts', ['bowerSvg', 'bowerEot', 'bowerTtf', 'bowerWoff', 'bowerWoff2'])
+
+gulp.task('bower', ['bowerJS', 'bowerCSS', 'bowerFonts']);
 
 gulp.task('serve', function(){
   browserSync.init({
